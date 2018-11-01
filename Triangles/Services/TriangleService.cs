@@ -13,11 +13,15 @@ namespace Triangles.Services
    {
       // Length of non-hypotenuse sides
       private const int NON_HYPOTENUSE_LENGTH = 10;
-      // Constants for validating row and column
+      // Constants for validating
       private const char MIN_ROW = 'a';
       private const char MAX_ROW = 'f';
       private const int MIN_COLUMN = 1;
       private const int MAX_COLUMN = 12;
+      private const int MIN_X_COORDINATE = 0;
+      private const int MAX_X_COORDINATE = 60;
+      private const int MIN_Y_COORDINATE = 0;
+      private const int MAX_Y_COORDINATE = 60;
 
 
       /// <summary>
@@ -94,13 +98,61 @@ namespace Triangles.Services
       public Triangle GetTriangle(Point vertex1, Point vertex2, Point vertex3)
       {
          // First do some validation on the vertices
+         ValidateVertices(vertex1, vertex2, vertex3);
 
          // Determine if the triangle is the lower left or upper right
          // triangle of a square and put the vertices into a known order.
          bool lowerLeftTriangle = OrderVertices(ref vertex1, ref vertex2, ref vertex3);
 
-         // TODO:
-         return null;
+         Triangle triangle = new Triangle();
+         triangle.Vertex1 = vertex1;
+         triangle.Vertex2 = vertex2;
+         triangle.Vertex3 = vertex3;
+
+         int row;
+         int column;
+         if (lowerLeftTriangle)
+         {
+            row = (int)(vertex1.Y / NON_HYPOTENUSE_LENGTH - 1);
+            column = (int)(vertex3.X / NON_HYPOTENUSE_LENGTH);
+         }
+         else
+         {
+            row = (int)(vertex3.Y / NON_HYPOTENUSE_LENGTH - 1);
+            column = (int)(vertex1.X / NON_HYPOTENUSE_LENGTH + 1);
+         }
+         triangle.Row = (char)('A' + row);
+         triangle.Column = column;
+
+         return triangle;
+      }
+
+      /// <summary>
+      /// Validates if vertices are valid. 
+      /// </summary>
+      /// <exception cref="Triangles.Exceptions.TriangleException">
+      /// Thrown when an invalid vertex is supplied.
+      /// </exception>
+      private void ValidateVertices(Point vertex1, Point vertex2, Point vertex3)
+      {
+         if (vertex1.X < MIN_X_COORDINATE || vertex1.X > MAX_X_COORDINATE ||
+            vertex1.Y < MIN_Y_COORDINATE || vertex1.Y > MAX_Y_COORDINATE ||
+            vertex1.X % NON_HYPOTENUSE_LENGTH != 0 || vertex1.Y % NON_HYPOTENUSE_LENGTH != 0)
+         {
+            throw new TriangleException("Supplied vertex 1 is invalid");
+         }
+         if (vertex2.X < MIN_X_COORDINATE || vertex2.X > MAX_X_COORDINATE ||
+            vertex2.Y < MIN_Y_COORDINATE || vertex2.Y > MAX_Y_COORDINATE ||
+            vertex2.X % NON_HYPOTENUSE_LENGTH != 0 || vertex2.Y % NON_HYPOTENUSE_LENGTH != 0)
+         {
+            throw new TriangleException("Supplied vertex 2 is invalid");
+         }
+         if (vertex3.X < MIN_X_COORDINATE || vertex3.X > MAX_X_COORDINATE ||
+            vertex3.Y < MIN_Y_COORDINATE || vertex3.Y > MAX_Y_COORDINATE ||
+            vertex3.X % NON_HYPOTENUSE_LENGTH != 0 || vertex3.Y % NON_HYPOTENUSE_LENGTH != 0)
+         {
+            throw new TriangleException("Supplied vertex 3 is invalid");
+         }
       }
 
       /// <summary>
