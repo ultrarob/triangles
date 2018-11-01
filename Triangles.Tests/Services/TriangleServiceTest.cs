@@ -173,5 +173,71 @@ namespace Triangles.Tests.Services
          Assert.AreEqual(new Point(0, 0), vertex2);
          Assert.AreEqual(new Point(10, 10), vertex3);
       }
+
+      [TestMethod]
+      public void OrderVerticesA2_1()
+      {
+         // I want to test the private method orderVertices since it's a critical part
+         // of my algorithm. The handlling of the ref args doesn't seem clean but works.
+         PrivateObject privateObject = new PrivateObject(triangleService);
+
+         Point vertex1 = new Point(0, 0);
+         Point vertex2 = new Point(10, 0);
+         Point vertex3 = new Point(10, 10);
+         object[] invokeArgs = new object[] { vertex1, vertex2, vertex3 };
+         var lowerLeftTriangle = privateObject.Invoke("OrderVertices", invokeArgs);
+         vertex1 = (Point)invokeArgs[0];
+         vertex2 = (Point)invokeArgs[1];
+         vertex3 = (Point)invokeArgs[2];
+
+         Assert.AreEqual(lowerLeftTriangle, false);
+         Assert.AreEqual(new Point(10, 0), vertex1);
+         Assert.AreEqual(new Point(0, 0), vertex2);
+         Assert.AreEqual(new Point(10, 10), vertex3);
+      }
+
+      [TestMethod]
+      public void OrderVerticesA2_2()
+      {
+         // I want to test the private method orderVertices since it's a critical part
+         // of my algorithm. The handlling of the ref args doesn't seem clean but works.
+         PrivateObject privateObject = new PrivateObject(triangleService);
+
+         Point vertex1 = new Point(10, 0);
+         Point vertex2 = new Point(0, 0);
+         Point vertex3 = new Point(10, 10);
+         object[] invokeArgs = new object[] { vertex1, vertex2, vertex3 };
+         var lowerLeftTriangle = privateObject.Invoke("OrderVertices", invokeArgs);
+         vertex1 = (Point)invokeArgs[0];
+         vertex2 = (Point)invokeArgs[1];
+         vertex3 = (Point)invokeArgs[2];
+
+         Assert.AreEqual(lowerLeftTriangle, false);
+         Assert.AreEqual(new Point(10, 0), vertex1);
+         Assert.AreEqual(new Point(0, 0), vertex2);
+         Assert.AreEqual(new Point(10, 10), vertex3);
+      }
+
+      [TestMethod]
+      public void OrderVerticesA2_3()
+      {
+         // I want to test the private method orderVertices since it's a critical part
+         // of my algorithm. The handlling of the ref args doesn't seem clean but works.
+         PrivateObject privateObject = new PrivateObject(triangleService);
+
+         Point vertex1 = new Point(10, 10);
+         Point vertex2 = new Point(10, 0);
+         Point vertex3 = new Point(0, 0);
+         object[] invokeArgs = new object[] { vertex1, vertex2, vertex3 };
+         var lowerLeftTriangle = privateObject.Invoke("OrderVertices", invokeArgs);
+         vertex1 = (Point)invokeArgs[0];
+         vertex2 = (Point)invokeArgs[1];
+         vertex3 = (Point)invokeArgs[2];
+
+         Assert.AreEqual(lowerLeftTriangle, false);
+         Assert.AreEqual(new Point(10, 0), vertex1);
+         Assert.AreEqual(new Point(0, 0), vertex2);
+         Assert.AreEqual(new Point(10, 10), vertex3);
+      }
    }
 }
