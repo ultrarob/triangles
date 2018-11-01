@@ -137,6 +137,34 @@ namespace Triangles.Tests.Services
       }
 
       [TestMethod]
+      // A11 from coordinates
+      public void CoordinatesRowColumnA11()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(50, 0), new Point(60, 10), new Point(50, 10));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(50, 10), triangle.Vertex1);
+         Assert.AreEqual(new Point(50, 0), triangle.Vertex2);
+         Assert.AreEqual(new Point(60, 10), triangle.Vertex3);
+         Assert.AreEqual('A', triangle.Row);
+         Assert.AreEqual(11, triangle.Column);
+      }
+
+      [TestMethod]
+      // A12 from coordinates
+      public void CoordinatesRowColumnA12()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(50, 0), new Point(60, 0), new Point(60, 10));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(60, 0), triangle.Vertex1);
+         Assert.AreEqual(new Point(50, 0), triangle.Vertex2);
+         Assert.AreEqual(new Point(60, 10), triangle.Vertex3);
+         Assert.AreEqual('A', triangle.Row);
+         Assert.AreEqual(12, triangle.Column);
+      }
+
+      [TestMethod]
       public void OrderVerticesA1_1()
       {
          // I want to test the private method orderVertices since it's a critical part

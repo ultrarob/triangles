@@ -114,12 +114,12 @@ namespace Triangles.Services
          if (lowerLeftTriangle)
          {
             row = (int)(vertex1.Y / NON_HYPOTENUSE_LENGTH - 1);
-            column = (int)(vertex3.X / NON_HYPOTENUSE_LENGTH);
+            column = (int)(vertex3.X / NON_HYPOTENUSE_LENGTH - 1) * 2 + 1;
          }
          else
          {
             row = (int)(vertex3.Y / NON_HYPOTENUSE_LENGTH - 1);
-            column = (int)(vertex1.X / NON_HYPOTENUSE_LENGTH + 1);
+            column = (int)(vertex1.X / NON_HYPOTENUSE_LENGTH) * 2;
          }
          triangle.Row = (char)('A' + row);
          triangle.Column = column;
