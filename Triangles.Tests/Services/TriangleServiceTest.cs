@@ -165,6 +165,77 @@ namespace Triangles.Tests.Services
       }
 
       [TestMethod]
+      // F1 from coordinates
+      public void CoordinatesRowColumnF1()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(0, 50), new Point(0, 60), new Point(10, 60));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(0, 60), triangle.Vertex1);
+         Assert.AreEqual(new Point(0, 50), triangle.Vertex2);
+         Assert.AreEqual(new Point(10, 60), triangle.Vertex3);
+         Assert.AreEqual('F', triangle.Row);
+         Assert.AreEqual(1, triangle.Column);
+      }
+
+      [TestMethod]
+      // F2 from coordinates
+      public void CoordinatesRowColumnF2()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(10, 50), new Point(0, 50), new Point(10, 60));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(10, 50), triangle.Vertex1);
+         Assert.AreEqual(new Point(0, 50), triangle.Vertex2);
+         Assert.AreEqual(new Point(10, 60), triangle.Vertex3);
+         Assert.AreEqual('F', triangle.Row);
+         Assert.AreEqual(2, triangle.Column);
+      }
+
+
+      [TestMethod]
+      // F11 from coordinates
+      public void CoordinatesRowColumnF11()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(50, 50), new Point(50, 60), new Point(60, 60));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(50, 60), triangle.Vertex1);
+         Assert.AreEqual(new Point(50, 50), triangle.Vertex2);
+         Assert.AreEqual(new Point(60, 60), triangle.Vertex3);
+         Assert.AreEqual('F', triangle.Row);
+         Assert.AreEqual(11, triangle.Column);
+      }
+
+      [TestMethod]
+      // F12 from coordinates
+      public void CoordinatesRowColumnF12()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(60, 60), new Point(50, 50), new Point(60, 50));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(60, 50), triangle.Vertex1);
+         Assert.AreEqual(new Point(50, 50), triangle.Vertex2);
+         Assert.AreEqual(new Point(60, 60), triangle.Vertex3);
+         Assert.AreEqual('F', triangle.Row);
+         Assert.AreEqual(12, triangle.Column);
+      }
+
+      [TestMethod]
+      // C5 from coordinates
+      public void CoordinatesRowColumnC5()
+      {
+         Triangle triangle = triangleService.GetTriangle(new Point(20, 20), new Point(30, 30), new Point(20, 30));
+
+         Assert.AreNotEqual(null, triangle);
+         Assert.AreEqual(new Point(20, 30), triangle.Vertex1);
+         Assert.AreEqual(new Point(20, 20), triangle.Vertex2);
+         Assert.AreEqual(new Point(30, 30), triangle.Vertex3);
+         Assert.AreEqual('C', triangle.Row);
+         Assert.AreEqual(5, triangle.Column);
+      }
+
+      [TestMethod]
       public void OrderVerticesA1_1()
       {
          // I want to test the private method orderVertices since it's a critical part
