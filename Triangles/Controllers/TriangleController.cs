@@ -4,6 +4,9 @@ using Triangles.Services;
 
 namespace Triangles.Controllers
 {
+   /// <summary>
+   /// Triangles API
+   /// </summary>
    public class TriangleController : ApiController
    {
       private TriangleService triangleService;
@@ -14,15 +17,27 @@ namespace Triangles.Controllers
       }
 
       // GET api/triangle/A/1
+      /// <summary>
+      /// Given a row and a column for a triangle, the coordinates of the vertices are calculated.
+      /// </summary>
+      /// <param name="row">The row of the triangle</param>
+      /// <param name="column">The column of the triangle</param>
+      /// <returns>A Triangle object with the details of the triangle</returns>
       [Route("api/triangle/{row}/{column}")]
       public Triangle Get(char row, int column)
       {
          return triangleService.GetTriangle(row, column);
       }
 
-      // POST api/values
-      public void Post([FromBody]string value)
+      // POST api/triangle
+      /// <summary>
+      /// Gets the row and column of the triangle for the supplied vertices.
+      /// </summary>
+      /// <param name="value"></param>
+      /// <returns>A triangle object with the details of the triangle.</returns>
+      public Triangle Post([FromBody]string value)
       {
+         return triangleService.GetTriangle('A', 1);
       }
 
    }
