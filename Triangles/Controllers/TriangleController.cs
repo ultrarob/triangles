@@ -33,11 +33,12 @@ namespace Triangles.Controllers
       /// <summary>
       /// Gets the row and column of the triangle for the supplied vertices.
       /// </summary>
-      /// <param name="value"></param>
-      /// <returns>A triangle object with the details of the triangle.</returns>
-      public Triangle Post([FromBody]string value)
+      /// <param name="vertices">The vertices of the triangle to find</param>
+      /// <returns>A triangle object with the details of the triangle</returns>
+      /// [Route("api/triangle
+      public Triangle Post([FromBody]TriangleVertices vertices)
       {
-         return triangleService.GetTriangle('A', 1);
+         return triangleService.GetTriangle(vertices.Vertex1, vertices.Vertex2, vertices.Vertex3);
       }
 
    }
