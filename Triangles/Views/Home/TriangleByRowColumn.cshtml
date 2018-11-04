@@ -1,0 +1,52 @@
+﻿@model Triangles.Models.Triangle
+
+<script>
+    function calculateClick() {
+        var row = $("#row").val();
+        var column = $("#column").val();
+        if (row == "" || column == "") {
+            alert("Invalid row or column.");
+            return;
+        }
+
+        $.getJSON("/api/triangle/" + row + "/" + column, function (result) {
+            alert(result);
+        });
+    }
+</script>
+
+<div>
+    <h4>Calculate Triangle Coordinates From Row and Column</h4>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Row)
+        </dt>
+
+        <dd>
+            <input id="row" type="text" size="6"/>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Column)
+        </dt>
+
+        <dd>
+            <input id="column" type="text" size="6"/>
+        </dd>
+
+        <dt>
+            <!-- empty -->
+        </dt>
+
+        <dd>
+            <input id="calculate" type="button" value="Calculate" onclick="calculateClick()"/>
+        </dd>
+    </dl>
+
+    <div style="display:block">
+        <h4>Vertices</h4>
+        <b>Vertex 1:</b> <span id="v1x"></span>,<span id="v1y"></span> <b>Vertex 2:</b> {},{} <b>Vertex 3:</b>
+    </div>
+</div>
+
