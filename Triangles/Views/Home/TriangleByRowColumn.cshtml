@@ -10,8 +10,31 @@
         }
 
         $.getJSON("/api/triangle/" + row + "/" + column, function (result) {
-            alert(result);
-        });
+
+            try {
+                $("#coordinatesResult").show();
+                var vertex1 = result.Vertex1.split(',');
+                $("#v1x").html(vertex1[0]);
+                $("#v1y").html(vertex1[1]);
+                var vertex2 = result.Vertex2.split(',');
+                $("#v2x").html(vertex2[0]);
+                $("#v2y").html(vertex2[1]);
+                var vertex3 = result.Vertex3.split(',');
+                $("#v3x").html(vertex3[0]);
+                $("#v3y").html(vertex3[1]);
+            }
+            catch (err) {
+                alert(err.message);
+            }
+
+        }).fail(function (jqXHR) {
+            var msg = "Error getting coordinates";
+            if (jqXHR.status == 500 && typeof jqXHR.responseJSON != 'undefined' &&
+                jqXHR.responseJSON.ExceptionMessage != 'undefined' && jqXHR.responseJSON.ExceptionMessage != "") {
+                msg += ": " + jqXHR.responseJSON.ExceptionMessage;
+            }
+            alert(msg);
+        })
     }
 </script>
 
@@ -42,11 +65,13 @@
         <dd>
             <input id="calculate" type="button" value="Calculate" onclick="calculateClick()"/>
         </dd>
-    </dl>
+     </dl>
 
-    <div style="display:block">
+    <div id="coordinatesResult" style="display:none">
         <h4>Vertices</h4>
-        <b>Vertex 1:</b> <span id="v1x"></span>,<span id="v1y"></span> <b>Vertex 2:</b> {},{} <b>Vertex 3:</b>
+        <b>Vertex 1:</b> <span id="v1x"></span>,<span id="v1y"></span> <b>Vertex 2:</b> <span id="v2x"></span>,<span id="v2y"></span>
+        <b>Vertex 3:</b>  <span id="v3x"></span>,<span id="v3y"></span>
     </div>
+
 </div>
 
