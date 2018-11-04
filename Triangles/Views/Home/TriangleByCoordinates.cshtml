@@ -1,49 +1,66 @@
 ﻿<script>
-    function calculateClick() {
-        var vertex1x = $("#vlx").val();
-        var vertex1y = $("#vly").val();
-        if (vertex1x == "" || vertex1y == "") {
-            alert("Invalid row or column.");
-            return;
+    function calcRowColumnClick() {
+        try {
+            var vertex1x = $("#coord1x").val();
+            var vertex1y = $("#coord1y").val();
+            if (vertex1x == "" || vertex1y == "") {
+                alert("Invalid vertex 1.");
+                return;
+            }
+            var vertex2x = $("#coord2x").val();
+            var vertex2y = $("#coord2y").val();
+            if (vertex2x == "" || vertex2y == "") {
+                alert("Invalid vertex 2.");
+                return;
+            }
+            var vertex3x = $("#coord3x").val();
+            var vertex3y = $("#coord3y").val();
+            if (vertex3x == "" || vertex3y == "") {
+                alert("Invalid vertex 3.");
+                return;
+            }
+
+            // JSON format
+            // {
+            // "Vertex1": "0,10",
+            // "Vertex2": "0,0",
+            // "Vertex3": "10,10"
+            // }
+            var vertices = {
+                Vertex1: vertex1x + "," + vertex1y,
+                Vertex2: vertex2x + "," + vertex2y,
+                Vertex3: vertex3x + "," + vertex3y,
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/triangle/",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(vertices),
+                success: function (result) {
+                    try {
+                        $("#rowColumnResult").show();
+                        $("#rowResult").html(result.Row);
+                        $("#columnResult").html(result.Column);
+                    }
+                    catch (err) {
+                        alert(err.message);
+                    }
+                },
+                fail: function (jqXHR) {
+                    alert("Fail");
+                    var msg = "Error getting row and column";
+                    if (jqXHR.status == 500 && typeof jqXHR.responseJSON != 'undefined' &&
+                        jqXHR.responseJSON.ExceptionMessage != 'undefined' && jqXHR.responseJSON.ExceptionMessage != "") {
+                        msg += ": " + jqXHR.responseJSON.ExceptionMessage;
+                    }
+                    alert(msg);
+                }
+            });
         }
-        var column = $("#column").val();
-        if (row == "" || column == "") {
-            alert("Invalid row or column.");
-            return;
+        catch (err) {
+            alert(err.message);
         }
-
-        // JSON format
-        // {
-        // "Vertex1": "0,10",
-        // "Vertex2": "0,0",
-        // "Vertex3": "10,10"
-        // }
-        $.getJSON("/api/triangle/" + row + "/" + column, function (result) {
-
-            try {
-                $("#rowColumnResult").show();
-                var vertex1 = result.Vertex1.split(',');
-                $("#v1x").html(vertex1[0]);
-                $("#v1y").html(vertex1[1]);
-                var vertex2 = result.Vertex2.split(',');
-                $("#v2x").html(vertex2[0]);
-                $("#v2y").html(vertex2[1]);
-                var vertex3 = result.Vertex3.split(',');
-                $("#v3x").html(vertex3[0]);
-                $("#v3y").html(vertex3[1]);
-            }
-            catch (err) {
-                alert(err.message);
-            }
-
-        }).fail(function (jqXHR) {
-            var msg = "Error getting coordinates";
-            if (jqXHR.status == 500 && typeof jqXHR.responseJSON != 'undefined' &&
-                jqXHR.responseJSON.ExceptionMessage != 'undefined' && jqXHR.responseJSON.ExceptionMessage != "") {
-                msg += ": " + jqXHR.responseJSON.ExceptionMessage;
-            }
-            alert(msg);
-        })
     }
 </script>
 
@@ -53,25 +70,25 @@
     <table>
         <tr>
             <td>Vertex 1:</td>
-            <td>X: <input id="v1x" type="text" size="3" /> Y: <input id="v1y" type="text" size="3" /></td>
+            <td>X: <input id="coord1x" type="text" size="3" /> Y: <input id="coord1y" type="text" size="3" /></td>
         </tr>
         <tr>
             <td>Vertex 2:</td>
-            <td>X: <input id="v2x" type="text" size="3" /> Y: <input id="v2y" type="text" size="3" /></td>
+            <td>X: <input id="coord2x" type="text" size="3" /> Y: <input id="coord2y" type="text" size="3" /></td>
         </tr>
         <tr>
             <td>Vertex 3:</td>
-            <td>X: <input id="v3x" type="text" size="3" /> Y: <input id="v3y" type="text" size="3" /></td>
+            <td>X: <input id="coord3x" type="text" size="3" /> Y: <input id="coord3y" type="text" size="3" /></td>
         </tr>
         <tr>
             <td><!-- empty --></td>
-            <td><input id="calculate" type="button" value="Calculate" onclick="calculateClick()" /></td>
+            <td><input id="calcRowColumn" type="button" value="Calculate" onclick="calcRowColumnClick()" /></td>
         </tr>
     </table>
 
     <div id="rowColumnResult" style="display:none">
         <h4>Row and Column</h4>
-        <b>Row:</b> <span id="row"></span> <b>Column:</b> <span id="column"></span>
+        <b>Row:</b> <span id="rowResult"></span> <b>Column:</b> <span id="columnResult"></span>
     </div>
 
 </div>
