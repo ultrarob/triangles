@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles
 {
     public static class WebApiConfig

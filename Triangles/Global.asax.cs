@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles
 {
     public class WebApiApplication : System.Web.HttpApplication

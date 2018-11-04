@@ -11,6 +11,9 @@ using System.Web.Http.Description;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>

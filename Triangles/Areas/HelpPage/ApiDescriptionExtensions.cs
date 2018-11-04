@@ -3,6 +3,9 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions

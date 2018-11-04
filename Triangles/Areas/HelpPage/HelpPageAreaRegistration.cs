@@ -1,6 +1,9 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration

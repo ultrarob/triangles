@@ -11,7 +11,10 @@ namespace Triangles.Controllers
    {
       private TriangleService triangleService;
 
-      TriangleController()
+      /// <summary>
+      /// Default constructor for TriangleController
+      /// </summary>
+      public TriangleController()
       {
          triangleService = new TriangleService();
       }

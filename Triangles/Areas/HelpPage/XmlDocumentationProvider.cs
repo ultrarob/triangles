@@ -7,6 +7,9 @@ using System.Web.Http.Description;
 using System.Xml.XPath;
 using Triangles.Areas.HelpPage.ModelDescriptions;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles.Areas.HelpPage
 {
     /// <summary>

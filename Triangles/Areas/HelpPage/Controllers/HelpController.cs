@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using Triangles.Areas.HelpPage.ModelDescriptions;
 using Triangles.Areas.HelpPage.Models;
 
+// Disable all XML Comment warnings in this file //
+#pragma warning disable 1591
+
 namespace Triangles.Areas.HelpPage.Controllers
 {
     /// <summary>

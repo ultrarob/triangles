@@ -1,18 +1,27 @@
-﻿@model Triangles.Models.Triangle
-
-<script>
+﻿<script>
     function calculateClick() {
-        var row = $("#row").val();
+        var vertex1x = $("#vlx").val();
+        var vertex1y = $("#vly").val();
+        if (vertex1x == "" || vertex1y == "") {
+            alert("Invalid row or column.");
+            return;
+        }
         var column = $("#column").val();
         if (row == "" || column == "") {
             alert("Invalid row or column.");
             return;
         }
 
+        // JSON format
+        // {
+        // "Vertex1": "0,10",
+        // "Vertex2": "0,0",
+        // "Vertex3": "10,10"
+        // }
         $.getJSON("/api/triangle/" + row + "/" + column, function (result) {
 
             try {
-                $("#coordinatesResult").show();
+                $("#rowColumnResult").show();
                 var vertex1 = result.Vertex1.split(',');
                 $("#v1x").html(vertex1[0]);
                 $("#v1y").html(vertex1[1]);
@@ -40,38 +49,29 @@
 
 <div>
     <h4>Calculate Triangle Coordinates From Row and Column</h4>
-    
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Row)
-        </dt>
 
-        <dd>
-            <input id="row" type="text" size="4"/>
-        </dd>
+    <table>
+        <tr>
+            <td>Vertex 1:</td>
+            <td>X: <input id="v1x" type="text" size="3" /> Y: <input id="v1y" type="text" size="3" /></td>
+        </tr>
+        <tr>
+            <td>Vertex 2:</td>
+            <td>X: <input id="v2x" type="text" size="3" /> Y: <input id="v2y" type="text" size="3" /></td>
+        </tr>
+        <tr>
+            <td>Vertex 3:</td>
+            <td>X: <input id="v3x" type="text" size="3" /> Y: <input id="v3y" type="text" size="3" /></td>
+        </tr>
+        <tr>
+            <td><!-- empty --></td>
+            <td><input id="calculate" type="button" value="Calculate" onclick="calculateClick()" /></td>
+        </tr>
+    </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Column)
-        </dt>
-
-        <dd>
-            <input id="column" type="text" size="4"/>
-        </dd>
-
-        <dt>
-            <!-- empty -->
-        </dt>
-
-        <dd>
-            <input id="calculate" type="button" value="Calculate" onclick="calculateClick()"/>
-        </dd>
-     </dl>
-
-    <div id="coordinatesResult" style="display:none">
-        <h4>Vertices</h4>
-        <b>Vertex 1:</b> <span id="v1x"></span>,<span id="v1y"></span> <b>Vertex 2:</b> <span id="v2x"></span>,<span id="v2y"></span>
-        <b>Vertex 3:</b>  <span id="v3x"></span>,<span id="v3y"></span>
+    <div id="rowColumnResult" style="display:none">
+        <h4>Row and Column</h4>
+        <b>Row:</b> <span id="row"></span> <b>Column:</b> <span id="column"></span>
     </div>
 
 </div>
-
