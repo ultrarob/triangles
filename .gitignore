@@ -1,5 +1,6 @@
 .vs
 packages
+TestResults
 Triangles/bin/*
 !Triangles/bin/roslyn
 Triangles.Tests/bin/Debug/*
