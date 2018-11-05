@@ -1,7 +1,12 @@
 .vs
 packages
-**/bin/*
+Triangles/bin/*
 !Triangles/bin/roslyn
+Triangles.Tests/bin/Debug/*
+Triangles.Tests/bin/Release/*
+!Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+!Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+!Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 **/obj
 **/*.user
 Triangles/App_Data/XmlDocument.xml
