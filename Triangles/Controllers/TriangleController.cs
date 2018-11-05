@@ -26,7 +26,7 @@ namespace Triangles.Controllers
       /// <param name="row">The row of the triangle</param>
       /// <param name="column">The column of the triangle</param>
       /// <returns>A Triangle object with the details of the triangle</returns>
-      [Route("api/triangle/{row}/{column}")]
+      [Route("api/triangle/{row:alpha}/{column:int}")]
       public Triangle Get(char row, int column)
       {
          return triangleService.GetTriangle(row, column);

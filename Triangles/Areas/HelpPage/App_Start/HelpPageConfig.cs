@@ -2,7 +2,7 @@
 // package to your project.
 ////#define Handle_PageResultOfT
 
-using System;
+using System.Windows;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +12,8 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using Triangles.Areas.HelpPage.SampleGeneration;
+using Triangles.Models;
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
 #endif
@@ -39,26 +41,35 @@ namespace Triangles.Areas.HelpPage
             //// Uncomment the following to use the documentation from XML documentation file.
             config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
 
-            //// Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.
-            //// Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type 
-            //// formats by the available formatters.
-            //config.SetSampleObjects(new Dictionary<Type, object>
-            //{
-            //    {typeof(string), "sample string"},
-            //    {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
-            //});
+            config.SetSampleForType(new TriangleSample(), new MediaTypeHeaderValue("application/json"), typeof(Triangle));
+            config.SetSampleForType(new TriangleSample(), new MediaTypeHeaderValue("text/json"), typeof(Triangle));
+            config.SetSampleForType(new TriangleSampleXML(), new MediaTypeHeaderValue("application/xml"), typeof(Triangle));
+            config.SetSampleForType(new TriangleSampleXML(), new MediaTypeHeaderValue("text/xml"), typeof(Triangle));
+            config.SetSampleForType(new TriangleVerticesSample(), new MediaTypeHeaderValue("application/json"), typeof(TriangleVertices));
+            config.SetSampleForType(new TriangleVerticesSample(), new MediaTypeHeaderValue("text/json"), typeof(TriangleVertices));
+            config.SetSampleForType(new TriangleVerticesSampleXML(), new MediaTypeHeaderValue("application/xml"), typeof(TriangleVertices));
+            config.SetSampleForType(new TriangleVerticesSampleXML(), new MediaTypeHeaderValue("text/xml"), typeof(TriangleVertices));
 
-            // Extend the following to provide factories for types not handled automatically (those lacking parameterless
-            // constructors) or for which you prefer to use non-default property values. Line below provides a fallback
-            // since automatic handling will fail and GeneratePageResult handles only a single type.
+         //// Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.
+         //// Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type 
+         //// formats by the available formatters.
+         //config.SetSampleObjects(new Dictionary<Type, object>
+         //{
+         //    {typeof(string), "sample string"},
+         //    {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
+         //});
+
+         // Extend the following to provide factories for types not handled automatically (those lacking parameterless
+         // constructors) or for which you prefer to use non-default property values. Line below provides a fallback
+         // since automatic handling will fail and GeneratePageResult handles only a single type.
 #if Handle_PageResultOfT
             config.GetHelpPageSampleGenerator().SampleObjectFactories.Add(GeneratePageResult);
 #endif
 
-            // Extend the following to use a preset object directly as the sample for all actions that support a media
-            // type, regardless of the body parameter or return type. The lines below avoid display of binary content.
-            // The BsonMediaTypeFormatter (if available) is not used to serialize the TextSample object.
-            config.SetSampleForMediaType(
+         // Extend the following to use a preset object directly as the sample for all actions that support a media
+         // type, regardless of the body parameter or return type. The lines below avoid display of binary content.
+         // The BsonMediaTypeFormatter (if available) is not used to serialize the TextSample object.
+         config.SetSampleForMediaType(
                 new TextSample("Binary JSON content. See http://bsonspec.org for details."),
                 new MediaTypeHeaderValue("application/bson"));
 
