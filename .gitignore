@@ -1,6 +1,7 @@
 .vs
 packages
-**/bin
+**/bin/*
+!Triangles/bin/roslyn
 **/obj
 **/*.user
 Triangles/App_Data/XmlDocument.xml
